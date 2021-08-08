@@ -3,10 +3,8 @@ const PORT = process.env.PORT || 3001;
 const path = require('path');
 const fs = require('fs');
 const db = require('./db/db.json');
-console.log(db);
 
 const app = express();
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
@@ -22,8 +20,10 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
-    const newNotes = req.body;   
+    req.body.id = db.length.toString(); 
+    const newNotes = req.body;  
     db.push(newNotes);
+    
     const notes = JSON.stringify(db);
     fs.writeFileSync('./db/db.json', notes);
     res.json(notes);
