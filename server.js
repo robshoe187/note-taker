@@ -23,11 +23,10 @@ app.get('/api/notes', (req, res) => {
 
 app.post('/api/notes', (req, res) => {
     const newNotes = req.body;   
-    // db.push(newNotes);
-    // const notes = JSON.stringify({ newNotes: db });
-    // fs.writeFileSync('./db/db.json', notes);
-    // res.json(notes);
-
+    db.push(newNotes);
+    const notes = JSON.stringify(db);
+    fs.writeFileSync('./db/db.json', notes);
+    res.json(notes);
 });
 
 app.get('/notes', (req, res) => {
@@ -44,4 +43,4 @@ app.get('*', (req,res) => {
 
 app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
-  });
+  })
